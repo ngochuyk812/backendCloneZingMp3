@@ -2,15 +2,34 @@ const express = require('express');
 const router = express.Router();
 const ZingMp3 = require("../model/zingmp3")
 
-router.get('/search', (req,res) => {
+router.get('/search', async (req,res) => {
     let name = req.query.name
-    ZingMp3.search(name).then(rs => res.send(rs))
+    ZingMp3.search(name).then(rs => {
+        if(rs.data.songs){
+            let result = rs.data.songs || []
+             result.forEach(async(element,index) => {
+                await ZingMp3.getSong(element.encodeId).then(rsLink => {
+                    result[index] = {linkStream : rsLink.data['128'] ,id : element.encodeId, title: element.title, artistsNames: element.artistsNames, thumbnailM: element.thumbnailM}
+                    if(index === result.length - 1){
+                        res.send(result)
+                    }
+                })
+            });
+
+        }else{
+            res.send([])
+
+        }
+
+    })
 	
 })
 
 router.get('/get_song', (req,res) => {
     let id = req.query.id
-    ZingMp3.getSong(id).then(rs => res.send(rs))
+    ZingMp3.getSong(id).then(rs => {
+        res.send(rs)
+    })
 	
 })
 
