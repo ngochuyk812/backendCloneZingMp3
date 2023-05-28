@@ -9,7 +9,13 @@ router.get('/search', async (req,res) => {
             let result = rs.data.songs || []
              result.forEach(async(element,index) => {
                 await ZingMp3.getSong(element.encodeId).then(rsLink => {
-                    result[index] = {linkStream : rsLink.data['128'] || null ,id : element.encodeId, title: element.title, artistsNames: element.artistsNames, thumbnailM: element.thumbnailM}
+                    try{
+                        result[index] = {linkStream : rsLink.data['128'] ,id : element.encodeId, title: element.title, artistsNames: element.artistsNames, thumbnailM: element.thumbnailM}
+
+                    }catch{
+                        result[index] = {linkStream : null ,id : element.encodeId, title: element.title, artistsNames: element.artistsNames, thumbnailM: element.thumbnailM}
+
+                    }
                     if(index === result.length - 1){
                         res.send(result.filter(tmp=>tmp.linkStream))
                     }
