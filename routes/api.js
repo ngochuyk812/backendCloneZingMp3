@@ -161,7 +161,16 @@ router.get("/get_lyric", (req, res) => {
   let id = req.query.id;
   ZingMp3.getLyric(id).then((rs) => res.send(rs));
 });
-
+router.get('/get_detail_playlist', (req,res) => {
+    let id = req.query.id
+    ZingMp3.getDetailPlaylist(id).then(rs => res.send(rs))
+	
+})
+router.get('/get_songs_by_id_playlist', (req,res) => {
+    let id = req.query.id
+    ZingMp3.getDetailPlaylist(id).then(rs => {
+        getLinkStream(rs['data']['song']['items'],(rsCallback)=>{
+            res.send()})})})
 router.get("/top", (req, res) => {
   let id = req.query.id;
   ZingMp3.getTop100().then((rs) => res.send(rs));
