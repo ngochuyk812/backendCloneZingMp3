@@ -19,7 +19,7 @@ app.get('/', (req,res)=>{
   res.send("Hello")
 });
 
-const port = process.env.POST || 3008
+const port = process.env.PORT || 3008
 
 app.listen(port, "0.0.0.0", function () {
   console.log(`Example app listening on port ${port}`)
