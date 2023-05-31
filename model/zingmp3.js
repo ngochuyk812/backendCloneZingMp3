@@ -140,6 +140,20 @@ class ZingMp3Api {
         })
     })
   }
+ // getBanner
+ getBanner() {
+  return new Promise((resolve, rejects) => {
+    this.getHome()
+      .then(res => {
+        let data = res['data']['items']
+        data = data.filter(tmp=>tmp['sectionType']==='banner')
+        resolve(data[0]['items'])
+      })
+      .catch(err => {
+        rejects(err)
+      })
+  })
+}
 
   // getDetailPlaylist
   getDetailPlaylist(playlistId) {
