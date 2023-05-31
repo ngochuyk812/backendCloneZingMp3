@@ -4,6 +4,8 @@ const router = express.Router()
 const apiRoute = require('./routes/api')
 const authRoute = require('./routes/auth')
 const connect = require('./connect/connect')
+const multer  = require('multer');
+
 require('dotenv').config();
 
 
@@ -15,7 +17,7 @@ app.use('/api', apiRoute);
 app.use('/auth', authRoute);
 
 const port = process.env.POST || 3008
-app.listen(port, () => {
+
+app.listen(port, "0.0.0.0", function () {
   console.log(`Example app listening on port ${port}`)
-  
-})
+});

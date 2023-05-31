@@ -196,7 +196,7 @@ router.get("/top", (req, res) => {
   ZingMp3.getTop100().then((rs) => res.send(rs));
 });
 router.get("/test", (req, res) => {
-  const data = fs.readFileSync('uploads\\9b699cf382f14a8e9bbd5c202263c641');
+  const data = fs.readFileSync('uploads\\test.mp3');
   res.setHeader('Content-Type', 'audio/mpeg');
   res.end(data);
 });
