@@ -15,6 +15,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', apiRoute);
 app.use('/auth', authRoute);
+app.get('/', (req,res)=>{
+  res.send("Hello")
+});
 
 const port = process.env.POST || 3008
 
